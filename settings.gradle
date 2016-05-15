@@ -1,0 +1,4 @@
+rootProject.name = 'jaxws-spring-parent'
+
+include 'jaxws-spring'
+include 'jaxws-spring-sample'

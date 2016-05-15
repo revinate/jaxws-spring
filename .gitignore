@@ -1,0 +1,13 @@
+*.class
+*.iml
+*.ipr
+*.iws
+
+.idea
+.project
+.classpath
+.settings
+.gradle
+build
+
+/jaxws-spring-sample/src/generated

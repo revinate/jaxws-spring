@@ -1,0 +1,7 @@
+<bindings xmlns="http://java.sun.com/xml/ns/jaxb" version="2.1">
+  <bindings schemaLocation="../xsd/Fibonacci.xsd">
+    <schemaBindings>
+      <package name="com.revinate.sample.datatype"/>
+    </schemaBindings>
+  </bindings>
+</bindings>

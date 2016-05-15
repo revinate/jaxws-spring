@@ -1,0 +1,75 @@
+buildscript {
+    ext {
+        springBootVersion = '1.3.5.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") 
+    }
+}
+
+apply plugin: 'spring-boot'
+
+ext {
+    generatedDir = "${projectDir}/src/generated"
+    generatedSourcesDir = "${generatedDir}/java"
+    applicationDefaultJvmArgs = [
+            "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005"
+    ]
+}
+
+configurations {
+    wsimport
+}
+
+dependencies {
+    compile project(':jaxws-spring')
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile "javax.xml.ws:jaxws-api:${jaxwsApiVersion}"
+    compile "com.sun.xml.ws:jaxws-rt:${jaxwsVersion}"
+
+    wsimport "com.sun.xml.ws:jaxws-tools:${jaxwsVersion}"
+}
+
+bootRun { task ->
+    if (project.hasProperty('args')) {
+        args project.args.split('\\s+')
+    }
+}
+
+task generateSources {
+    ext.wsdlFile = "${projectDir}/src/main/resources/sample/wsdl/SampleService.wsdl"
+    ext.wsdlLocation = "/sample/wsdl/SampleService.wsdl"
+    ext.bindingDir = "${projectDir}/src/main/resources/sample/xjb"
+
+    doLast {
+        ant {
+            taskdef name: "wsimport",
+                    classname: "com.sun.tools.ws.ant.WsImport",
+                    classpath: configurations.wsimport.asPath
+
+            mkdir(dir: generatedSourcesDir)
+
+            wsimport(sourcedestdir: generatedSourcesDir,
+                     wsdl: wsdlFile,
+                     wsdlLocation: wsdlLocation,
+                     keep: true,
+                     xnocompile: true) {
+                binding(dir: bindingDir, includes: "*.xjb")
+            }
+        }
+    }
+}
+
+task cleanGenerated(type: Delete) {
+    delete generatedDir
+}
+
+clean.dependsOn cleanGenerated
+
+compileJava {
+    dependsOn generateSources
+    source generatedSourcesDir
+}

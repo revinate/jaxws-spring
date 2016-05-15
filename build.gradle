@@ -1,0 +1,92 @@
+allprojects {
+    group 'com.revinate'
+    version = '1.0.0'
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'maven'
+    apply plugin: 'signing'
+
+    sourceCompatibility = 1.7
+    targetCompatibility = 1.7
+
+    ext {
+        springVersion = '4.2.6.RELEASE'
+        servletApiVersion = '3.1.0'
+        jaxwsApiVersion = '2.2.11'
+        jaxwsVersion = '2.2.10'
+    }
+
+    if (!hasProperty('sonatypeUsername')) {
+        ext.sonatypeUsername = null
+        ext.sonatypePassword = null
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    task javadocJar(type: Jar, dependsOn: javadoc) {
+        classifier = 'javadoc'
+        from javadoc
+    }
+
+    task sourcesJar(type: Jar) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+
+    artifacts {
+        archives jar, javadocJar, sourcesJar
+    }
+
+    signing {
+        required { gradle.taskGraph.hasTask('uploadArchives') }
+        sign configurations.archives
+    }
+
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+                repository(url: 'https://oss.sonatype.org/service/local/staging/deploy/maven2/') {
+                    authentication(userName: sonatypeUsername, password: sonatypePassword)
+                }
+
+                pom.project {
+                    packaging 'jar'
+                    name 'JAX-WS Spring'
+                    description 'JAX-WS integration with Spring'
+                    url 'https://github.com/revinate/jaxws-spring'
+
+                    scm {
+                        url 'https://github.com/revinate/jaxws-spring'
+                        connection 'scm:git:git://github.com/revinate/jaxws-spring.git'
+                        developerConnection 'scm:git:ssh://git@github.com:revinate/jaxws-spring.git'
+                    }
+
+                    licenses {
+                        license {
+                            name 'CDDL+GPLv2'
+                            url 'https://glassfish.java.net/public/CDDL+GPL.html'
+                            distribution 'repo'
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id 'revinate'
+                            name 'Revinate, Inc'
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.13'
+}

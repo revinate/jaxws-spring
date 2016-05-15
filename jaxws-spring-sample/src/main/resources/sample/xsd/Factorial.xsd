@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema elementFormDefault="qualified"
+           targetNamespace="http://www.revinate.com/sample"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Factorial">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="number" type="xs:int"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="FactorialResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="return" type="xs:int"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="FactorialFault">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="faultInfo" type="xs:string"/>
+        <xs:element name="message" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

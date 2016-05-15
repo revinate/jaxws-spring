@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+    name="SampleService"
+    targetNamespace="http://www.revinate.com/sample"
+    xmlns:tns="http://www.revinate.com/sample"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+    <xs:schema>
+      <xs:import namespace="http://www.revinate.com/sample" schemaLocation="../xsd/Fibonacci.xsd"/>
+      <xs:import namespace="http://www.revinate.com/sample" schemaLocation="../xsd/Factorial.xsd"/>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="Fibonacci">
+    <wsdl:part name="Fibonacci" element="tns:Fibonacci"/>
+  </wsdl:message>
+  <wsdl:message name="FibonacciResponse">
+    <wsdl:part name="FibonacciResponse" element="tns:FibonacciResponse"/>
+  </wsdl:message>
+  <wsdl:message name="FibonacciFault">
+    <wsdl:part name="FibonacciFault" element="tns:FibonacciFault"/>
+  </wsdl:message>
+  <wsdl:message name="Factorial">
+    <wsdl:part name="Factorial" element="tns:Factorial"/>
+  </wsdl:message>
+  <wsdl:message name="FactorialResponse">
+    <wsdl:part name="FactorialResponse" element="tns:FactorialResponse"/>
+  </wsdl:message>
+  <wsdl:message name="FactorialFault">
+    <wsdl:part name="FactorialFault" element="tns:FactorialFault"/>
+  </wsdl:message>
+  <wsdl:portType name="FibonacciPort">
+    <wsdl:operation name="Fibonacci">
+      <wsdl:input name="Fibonacci" message="tns:Fibonacci"/>
+      <wsdl:output name="FibonacciResponse" message="tns:FibonacciResponse"/>
+      <wsdl:fault name="FibonacciFault" message="tns:FibonacciFault"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="FactorialPort">
+    <wsdl:operation name="Factorial">
+      <wsdl:input name="Factorial" message="tns:Factorial"/>
+      <wsdl:output name="FactorialResponse" message="tns:FactorialResponse"/>
+      <wsdl:fault name="FactorialFault" message="tns:FactorialFault"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="FibonacciBinding" type="tns:FibonacciPort">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <wsdl:operation name="Fibonacci">
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="FibonacciFault">
+        <soap:fault name="FibonacciFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="FactorialBinding" type="tns:FactorialPort">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <wsdl:operation name="Factorial">
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="FactorialFault">
+        <soap:fault name="FactorialFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SampleService">
+    <wsdl:port name="FibonacciPort" binding="tns:FibonacciBinding">
+      <soap:address location="REPLACE_WITH_ACTUAL_URL"/>
+    </wsdl:port>
+    <wsdl:port name="FactorialPort" binding="tns:FactorialBinding">
+      <soap:address location="REPLACE_WITH_ACTUAL_URL"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

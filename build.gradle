@@ -18,6 +18,11 @@ subprojects {
         jaxwsVersion = '2.2.10'
     }
 
+    if (!rootProject.hasProperty('sonatypeUsername')) {
+        ext.sonatypeUsername = null
+        ext.sonatypePassword = null
+    }
+
     repositories {
         mavenCentral()
     }

@@ -1,5 +1,8 @@
 # JAX-WS integration with Spring
 
+[![BuildStatus](https://travis-ci.org/revinate/jaxws-spring.svg?branch=master)](https://travis-ci.org/revinate/jaxws-spring)
+[![BuildStatus](https://maven-badges.herokuapp.com/maven-central/com.revinate/jaxws-spring/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.revinate/jaxws-spring)
+
 This is a JAX-WS reference implementation ([Metro](https://metro.java.net/))
 extension for integrating with [Spring Framework](https://projects.spring.io/spring-framework/).
 Using this extension, it is possible to write service endpoint implementations

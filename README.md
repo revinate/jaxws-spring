@@ -27,6 +27,28 @@ can pull in versions and implementations of those APIs they choose.
 * JAX-WS API
 * JAX-WS RT
 
+## Installation
+
+### Maven
+
+Add this dependency to your project's POM:
+
+```xml
+<dependency>
+  <groupId>com.revinate</groupId>
+  <artifactId>jaxws-spring</artifactId>
+  <version>1.0.0</version>
+</dependency>
+```
+
+### Gradle
+
+Add this dependency to your project's build script:
+
+```groovy
+compile 'com.revinate:jaxws-spring:1.0.0'
+```
+
 ## Usage
 
 This extension comes with a [sample web service application](jaxws-spring-sample)

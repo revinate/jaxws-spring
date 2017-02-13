@@ -51,12 +51,17 @@ compile 'com.revinate:jaxws-spring:1.0.0'
 
 ## Usage
 
-This extension comes with a [sample web service application](jaxws-spring-sample)
-that demonstrates its usage. The sample application can be started by running
+This extension comes with two sample web service applications that demonstrate
+its usage.
+
+### WSDL-first sample
+
+This sample is located in the [jaxws-spring-sample](jaxws-spring-sample)
+directory. The sample application can be started by running
 the following command in the project root directory:
 
 ```
-$ ./gradlew bootRun
+$ ./gradlew :jaxws-spring-sample:bootRun
 ```
 
 The sample application implements a single service with two ports, located at:
@@ -70,3 +75,17 @@ demonstrates how to use Spring JavaConfig to configure web service components.
 The [FibonacciPortImpl class](jaxws-spring-sample/src/main/java/com/revinate/jaxwsspringsample/FibonacciPortImpl.java)
 is a service endpoint implementation written as a Spring Bean with dependency
 injection.
+
+### Java-first sample
+
+This sample is located in the [jaxws-spring-sample-fromjava](jaxws-spring-sample-fromjava)
+directory. The sample application can be started by running
+the following command in the project root directory:
+
+```
+$ ./gradlew :jaxws-spring-sample-fromjava:bootRun
+```
+
+The sample application implements a single service with one port, located at:
+
+* <http://localhost:8080/service/fibonacci>
